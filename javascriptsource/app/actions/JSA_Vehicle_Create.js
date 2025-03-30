@@ -10,10 +10,10 @@ import { Big } from "big.js";
 import { faker } from '@faker-js/faker';
 
 // BEGIN EXTRA CODE
-async function createMxObject() {
+async function createMxObject(entityName) {
 	return new Promise(function(resolve, reject) {
 		mx.data.create({
-			entity: "App.Vehicle",
+			entity: entityName,
 			callback: function(mxObject) {
 				resolve(mxObject);
 			},
@@ -38,7 +38,7 @@ export async function JSA_Vehicle_Create() {
 	const year = faker.date.past().getFullYear();
 	const vrm = faker.vehicle.vrm();
 
-	const newVehicle = await createMxObject();
+	const newVehicle = await createMxObject("App.Vehicle");
 	newVehicle.set("Name", name);
 	newVehicle.set("Model", model);
 	newVehicle.set("Manufacturer", manufacturer);
@@ -47,7 +47,6 @@ export async function JSA_Vehicle_Create() {
 	newVehicle.set("Year", year);
 	newVehicle.set("Vrm", vrm);
 
-	console.warn(`Name: ${name}, Model: ${model}`);
 	return newVehicle;
 	// END USER CODE
 }
